@@ -1,0 +1,18 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "wasm build",
+            "type": "shell",
+            "command": "wasm-pack",
+            "args": ["build", "--target", "web"]
+        },
+        {
+            "label": "wasm server localhost:8080",
+            "type": "shell",
+            "command": "deno",
+            "args": ["run", "--allow-run", "--allow-read", "--allow-net", "file-server-deno.ts"],
+            "isBackground": true
+        }
+    ]
+}

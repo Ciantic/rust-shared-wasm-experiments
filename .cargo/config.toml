@@ -1,0 +1,10 @@
+[build]
+target = "wasm32-unknown-unknown"
+
+[target.wasm32-unknown-unknown]
+rustflags = ["-C", "target-feature=+atomics,+bulk-memory,+mutable-globals"]
+# TODO: WASM SIMD +simd128 see https://v8.dev/features/simd
+# Tested +simd128 22.7.2021, didn't work! Got some wasm-opt problems.
+
+[unstable]
+build-std = ["panic_abort", "std"]
