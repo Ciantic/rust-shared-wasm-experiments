@@ -51,6 +51,9 @@ async function createWorkers(mem, count) {
 
 const workers = await createWorkers(mem, 4);
 
+// Shared hash map
+// ----------------------------------------------------------------------------
+
 // Add to map from this module
 add_to_map(1, "Added from main thread!");
 console.log("Main thread : add_to_map", 1, "Added from main thread!");
@@ -75,3 +78,13 @@ setTimeout(() => {
 // Worker 0 : add_to_map 2 Foo
 // Worker 2 : get_from_map Foo
 // Worker 1 : get_from_map Foo
+
+// Shared Channel
+// ----------------------------------------------------------------------------
+
+setTimeout(() => {
+    workers[2].postMessage({ task: "receive_from_channel" });
+}, 3000);
+setTimeout(() => {
+    workers[1].postMessage({ task: "send_to_channel", value: "I send this to the channel!" });
+}, 3100);

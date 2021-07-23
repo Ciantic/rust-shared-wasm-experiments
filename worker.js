@@ -1,4 +1,9 @@
-import init, { get_from_map, add_to_map } from "./pkg/shared_wasm_experiments.js";
+import init, {
+    get_from_map,
+    add_to_map,
+    send_to_channel,
+    receive_from_channel,
+} from "./pkg/shared_wasm_experiments.js";
 
 let id = -1;
 
@@ -17,5 +22,13 @@ onmessage = async function (m) {
     if (m.data.task === "add_to_map") {
         console.log("Worker", id, ": add_to_map", m.data.key, m.data.value);
         add_to_map(m.data.key, m.data.value);
+    }
+
+    if (m.data.task === "send_to_channel") {
+        console.log("Worker", id, ": send_to_channel", send_to_channel(m.data.value));
+    }
+
+    if (m.data.task === "receive_from_channel") {
+        console.log("Worker", id, ": receive_from_channel", receive_from_channel());
     }
 };

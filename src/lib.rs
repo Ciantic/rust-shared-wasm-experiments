@@ -3,8 +3,10 @@ mod utils;
 use std::{
     collections::HashMap,
     sync::{Arc, RwLock},
+    time::Duration,
 };
 
+use crossbeam_channel::{unbounded, Receiver, Sender};
 use once_cell::sync::Lazy;
 use wasm_bindgen::prelude::*;
 
@@ -19,6 +21,18 @@ extern "C" {
     #[wasm_bindgen(js_namespace = console)]
     fn log(s: &str);
 }
+
+#[wasm_bindgen]
+pub fn __dummy() {
+    // TODO: Without this export, the wasm-pack didn't create imports.wbg and
+    // failed?
+    unsafe {
+        log(&"Foo");
+    }
+}
+
+// Shared hash map
+// ----------------------------------------------------------------------------
 
 static CACHE: Lazy<Arc<RwLock<HashMap<i32, String>>>> =
     Lazy::new(|| Arc::new(RwLock::new(HashMap::<i32, String>::new())));
@@ -35,11 +49,24 @@ pub fn get_from_map(key: i32) -> Option<String> {
     c.get(&key).map(Clone::clone)
 }
 
+// Shared Channel
+// ----------------------------------------------------------------------------
+
+// #[wasm_bindgen]
+// pub enum Message {
+//     Foo,
+// }
+
+static CHANNEL: Lazy<(Sender<String>, Receiver<String>)> = Lazy::new(|| unbounded());
+
 #[wasm_bindgen]
-pub fn __dummy() {
-    // TODO: Without this export, the wasm-pack didn't create imports.wbg and
-    // failed?
-    unsafe {
-        log(&"Foo");
-    }
+pub fn send_to_channel(str: &str) {
+    let _ = CHANNEL.0.send(str.into());
+}
+
+#[wasm_bindgen]
+pub fn receive_from_channel() -> String {
+    // let value = CHANNEL.1.recv_timeout(Duration::from_millis(3000)).unwrap();
+    let value = CHANNEL.1.recv().unwrap();
+    return value;
 }
