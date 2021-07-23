@@ -9,6 +9,10 @@ The example WASM library show cases Crossbeam Channels and shared HashMap usage 
 5. Navigate to `http://localhost:8000`
 6. Open a DevTools to see the communication in console
 
+## How it works?
+
+It initalizes only *one* `WebAssembly.Memory` object and shares it between the workers. See [index.js](./index.js) and [index.js](./worker.js) for details.
+
 
 ## Footnotes
 
