@@ -1,4 +1,4 @@
-# Wasm pack experiment showing shared memory
+# Rust WASM experiment with shared memory
 
 The example WASM library show cases Crossbeam Channels and shared HashMap usage between workers.
 
