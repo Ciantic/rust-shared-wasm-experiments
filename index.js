@@ -75,11 +75,6 @@ setTimeout(() => {
     workers[3].postMessage({ task: "get_from_map", key: 1 });
 }, 1500);
 
-// Above should print out this in the console:
-// Worker 0 : add_to_map 2 Foo
-// Worker 2 : get_from_map Foo
-// Worker 1 : get_from_map Foo
-
 // Shared Channel
 // ----------------------------------------------------------------------------
 
