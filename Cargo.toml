@@ -1,0 +1,26 @@
+[package]
+name = "shared-wasm-experiments"
+version = "0.1.0"
+authors = ["Jari Pennanen <ciantic@oksidi.com>"]
+edition = "2018"
+publish = false
+repository = ""
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+default = ["console_error_panic_hook"]
+
+[dependencies]
+wasm-bindgen = "0.2.63"
+console_error_panic_hook = { version = "0.1.6", optional = true }
+wee_alloc = { version = "0.4.5", optional = true }
+once_cell = "*"
+
+[dev-dependencies]
+wasm-bindgen-test = "0.3.13"
+
+[profile.release]
+opt-level = "s" # Tell `rustc` to optimize for small code size.
+
