@@ -11,7 +11,7 @@ The example WASM library show cases Crossbeam Channels and shared HashMap usage 
 
 ## How it works?
 
-It initalizes only *one* `WebAssembly.Memory` object and shares it between the workers. See [index.js](./index.js) and [index.js](./worker.js) for details.
+It initalizes only *one* `WebAssembly.Memory` object and shares it between the workers. See [index.js](./index.js) and [worker.js](./worker.js) for details.
 
 
 ## Footnotes
