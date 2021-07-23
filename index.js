@@ -53,6 +53,7 @@ const workers = await createWorkers(mem, 4);
 
 // Shared hash map
 // ----------------------------------------------------------------------------
+console.log("Shared hash map ----------------------------------");
 
 // Add to map from this module
 add_to_map(1, "Added from main thread!");
@@ -83,6 +84,7 @@ setTimeout(() => {
 // ----------------------------------------------------------------------------
 
 setTimeout(() => {
+    console.log("Shared channel ----------------------------------");
     workers[2].postMessage({ task: "receive_from_channel" });
 }, 3000);
 setTimeout(() => {

@@ -1,6 +1,6 @@
 # Wasm pack experiment showing shared memory
 
-The example WASM library has one shared HashMap, that each worker share and can modify with exposed functions.
+The example WASM library show cases Crossbeam Channels and shared HashMap usage between workers.
 
 1. Install [wasm-pack](https://github.com/rustwasm/wasm-pack)
 2. Install [deno](https://deno.land/) for static File HTTP server, see [file-server-deno.ts](./file-server-deno.ts) <sup>1</sup>

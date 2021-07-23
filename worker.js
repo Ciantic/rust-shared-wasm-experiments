@@ -25,7 +25,8 @@ onmessage = async function (m) {
     }
 
     if (m.data.task === "send_to_channel") {
-        console.log("Worker", id, ": send_to_channel", send_to_channel(m.data.value));
+        console.log("Worker", id, ": send_to_channel", m.data.value);
+        send_to_channel(m.data.value);
     }
 
     if (m.data.task === "receive_from_channel") {
