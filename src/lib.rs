@@ -52,11 +52,6 @@ pub fn get_from_map(key: i32) -> Option<String> {
 // Shared Channel
 // ----------------------------------------------------------------------------
 
-// #[wasm_bindgen]
-// pub enum Message {
-//     Foo,
-// }
-
 static CHANNEL: Lazy<(Sender<String>, Receiver<String>)> = Lazy::new(|| unbounded());
 
 #[wasm_bindgen]
@@ -66,7 +61,10 @@ pub fn send_to_channel(str: &str) {
 
 #[wasm_bindgen]
 pub fn receive_from_channel() -> String {
+    // Using timeout is not possible:
     // let value = CHANNEL.1.recv_timeout(Duration::from_millis(3000)).unwrap();
+
+    // We must receive infinitely
     let value = CHANNEL.1.recv().unwrap();
     return value;
 }
